@@ -48,6 +48,9 @@ Este sistema permite gerenciar a alocação de datashows para salas, verificando
 
     ?- desalocar_datashow(Sala,_).
 
+4.Verificar todos os datashow disponivéis 
+    ?- disponivel(Datashow).
+
 
 
 
