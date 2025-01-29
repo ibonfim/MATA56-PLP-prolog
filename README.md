@@ -1,58 +1,70 @@
-# Sistema de Alocação de Datashows
+# README - Sistema de Alocação de Datashows
 
-Este sistema permite gerenciar a alocação de datashows para salas, verificando sua disponibilidade, alocando e desalocando conforme necessário.
-
-## Funcionalidades
-
-- Verificar disponibilidade de datashows.
-- Alocar datashows para salas.
-- Desalocar datashows.
+## Descrição
+Este sistema foi desenvolvido em **Prolog** para gerenciar a alocação de datashows em salas, evitando conflitos e garantindo que cada sala tenha no máximo um datashow alocado por vez.
 
 ## Requisitos
+- Interpretador **SWI-Prolog** instalado no sistema.
 
-- **SWI-Prolog** ou **SWISH Prolog** (opcional, versão online).
-
-## Como Usar
-
-1. **Verificar a disponibilidade** de um datashow:
+## Como Executar
+1. **Abra o SWI-Prolog**.
+2. **Carregue o arquivo** contendo o código-fonte:
    ```prolog
-   ?- disponivel(d1).
-   ?- alocada(sala1, d1).
-   ?- desalocar_datashow(d1).
+   ?- [nome_do_arquivo].
+   ```
+3. **Utilize os predicados abaixo para interagir com o sistema.**
 
-2. **Exemplo de fluxo completo** de um datashow:
-  ```prolog
-   % Verificar disponibilidade antes da alocação
-   ?- disponivel(d1);
-   O datashow d1 está disponível.
+## Predicados e Consultas
+### 1. Alocar um Datashow
+Para alocar um datashow a uma sala, use:
+```prolog
+?- alocar_datashow(sala1, d1).
+```
+Saída esperada:
+```
+Datashow d1 alocado para a sala sala1.
+```
 
-   % Alocar o datashow
-   ?- alocar_datashow(sala1, d1);
-   O datashow d1 foi alocado para a sala sala1.
+### 2. Desalocar um Datashow
+Para liberar um datashow previamente alocado, use:
+```prolog
+?- desalocar_datashow(sala1, d1).
+```
+Saída esperada:
+```
+Datashow d1 liberado da sala sala1.
+```
 
-   % Verificar disponibilidade após a alocação
-   ?- disponivel(d1);
-   O datashow d1 não está disponível.
+### 3. Consultar Alocações Ativas
+Para verificar as alocações atuais, utilize:
+```prolog
+?- findall((Sala, Datashow), alocada(Sala, Datashow), Alocacoes), writeln(Alocacoes).
+```
+Saída esperada (exemplo):
+```
+[(sala1, d1), (sala2, d2)].
+```
 
-   % Desalocar o datashow
-   ?- desalocar_datashow(sala1,d1).
-   O datashow d1 foi desalocado.
+### 4. Verificar Disponibilidade de um Datashow
+Para saber se um datashow está disponível:
+```prolog
+?- disponivel(d1).
+```
+Se `d1` estiver disponível, o Prolog retornará `true`. Caso contrário, retornará `false`.
 
-3. é possivel alocar e desalocar sequencialmente os datashow com:
+## Exemplo de Uso Interativo
+```prolog
+?- alocar_datashow(sala1, d1).
+?- alocar_datashow(sala2, d2).
+?- findall((Sala, Datashow), alocada(Sala, Datashow), Alocacoes), writeln(Alocacoes).
+?- desalocar_datashow(sala1, d1).
+?- findall((Sala, Datashow), alocada(Sala, Datashow), Alocacoes), writeln(Alocacoes).
+```
 
-    ?- alocar_datashow(Sala, Datashow).
-    para desalocar:
-    ?- desalocar_datashow(Sala, Datashow).
+## Considerações
+- O sistema impede que uma sala tenha mais de um datashow simultaneamente.
+- Apenas datashows disponíveis podem ser alocados.
+- Alocações podem ser consultadas a qualquer momento.
 
-    Caso nao queira passar um dos parametros a consulta ficaria assim e ocorreria para todos que estiverem alocados:
-
-    ?- desalocar_datashow(Sala,_).
-
-4.Verificar todos os datashow disponivéis 
-    ?- disponivel(Datashow).
-
-
-
-
-
+Esse README fornece as instruções para rodar o sistema e interagir com ele de maneira simples e eficaz.
 
